@@ -2,6 +2,7 @@
 TODO: 
     1- store password as hash value not plain text
     2- move the accounts list to Account class and impl the find by email thier
+    3- create custom Exception calsses to better handel them
 """
 from .account import Account
 from .utils import generate_id, validate_email
@@ -23,13 +24,18 @@ def valid_login_data(keys) -> bool:
 
 
 def register(**kwargs):
+    """
+    Parameters:
+    - **kwargs: Additional keyword arguments.
+        Suggested keys: "first_name", "last_name","password", "email", "mobile_phone".
+    """
     if not valid_reg_data(kwargs.keys()):
         raise Exception("Please provide the full data to register")
 
     uid = generate_id()
     acc = Account(uid, kwargs["first_name"], kwargs["last_name"], kwargs["password"],
                   kwargs["email"], kwargs["mobile_phone"])
-
+    accounts.append(acc)
     return acc._uid
 
 

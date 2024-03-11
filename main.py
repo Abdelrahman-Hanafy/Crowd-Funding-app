@@ -22,7 +22,24 @@ def main():
             break
         
         elif choice == '1': #reg
-            pass
+            name = input("Enter your name [first last]: ").split(" ")
+            email = input("Email: ")
+            phone = input("Mobile phone: ")
+            while True:
+                password = getpass("Choose a password: ")
+                confirm_pass = getpass("Enter your password again: ")
+
+                if password != confirm_pass:
+                    print("Passwords should match!!")
+                    continue
+                break
+
+            try:
+                logged_id = auth.register(first_name=name[0],last_name=name[1],password=password,
+                                      email=email,mobile_phone=phone)
+            except Exception as e:
+                print(e)
+
         elif choice == '2': #login
             email = input("Email: ")
             password = getpass("Passowrd: ")
@@ -31,14 +48,14 @@ def main():
             except Exception as e:
                 print(e)
                 
-
-
         else:
             print("Please choose from menu items [1, 2, 0]")
             continue
 
     if not logged_id :
         return
+    
+    print(logged_id)
     
 if __name__ == "__main__":
     main()
