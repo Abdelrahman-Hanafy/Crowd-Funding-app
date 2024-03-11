@@ -1,3 +1,8 @@
+"""
+TODO: 
+    1- store password as hash value not plain text
+    2- move the accounts list to Account class and impl the find by email thier
+"""
 from .account import Account
 from .utils import generate_id, validate_email
 
