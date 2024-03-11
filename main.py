@@ -15,7 +15,16 @@ def show_log_menu():
     
 
 def show_main_menu():
-    pass
+    print(50*"=")
+    print("""
+    Do you want to:
+        1. View All projects
+        2. Edit your Projects
+        3. Delete from your Project
+        4. Search with date
+        0. Exit
+    """)
+    print(50*"=")
 
 
 def main():
@@ -85,4 +94,5 @@ def main():
             continue
 
 if __name__ == "__main__":
-    main()
+    while True:
+        main()

@@ -25,9 +25,10 @@ class Project():
         self.__end: datetime = end_date
 
     def __str__(self) -> str:
-        return f"""
+        return f"""{"="*50}
         Title: {self.title}
         Description: {self.description}
         Traget: {self.traget}
         Remaning Period: {(self.__end - self.__start).days} days
+        {"="*50}
         """
