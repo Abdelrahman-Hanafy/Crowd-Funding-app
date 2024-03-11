@@ -1,4 +1,6 @@
 from Account import auth
+from Project import manage
+
 from getpass import getpass
 
 def show_log_menu():
@@ -11,7 +13,13 @@ def show_log_menu():
     """)
     print(50*"=")
     
+
+def show_main_menu():
+    pass
+
+
 def main():
+    manage.generate_demo_projects()
     logged_id:str = None
 
     while not logged_id:
@@ -36,7 +44,7 @@ def main():
 
             try:
                 logged_id = auth.register(first_name=name[0],last_name=name[1],password=password,
-                                      email=email,mobile_phone=phone)
+                                        email=email,mobile_phone=phone)
             except Exception as e:
                 print(e)
 
@@ -55,7 +63,26 @@ def main():
     if not logged_id :
         return
     
-    print(logged_id)
-    
+    while logged_id:
+        show_main_menu()
+        choice  = input("your choice: ")
+
+        if choice == '0': #log out
+            logged_id = None
+
+        elif choice == '1': #view
+            manage.show_all()
+
+        elif choice == '2': #edit
+            pass
+        elif choice == '3': #delete
+            pass
+        elif choice == '4': #search
+            pass
+
+        else:
+            print("Please choose from menu items [1, 2, 3, 4, 0]")
+            continue
+
 if __name__ == "__main__":
     main()
