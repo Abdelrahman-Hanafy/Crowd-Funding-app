@@ -4,8 +4,10 @@ TODO:
     2- move the accounts list to Account class and impl the find by email thier
     3- create custom Exception calsses to better handel them
 """
+import rstr
 from .account import Account
 from .utils import generate_id, validate_email
+from faker import Faker  # A library for generating fake data
 
 accounts: list[Account] = []
 
@@ -54,3 +56,21 @@ def login(**kwagrs):
             return acc._uid
     else:
         raise Exception("Username or Password is wrong!!")
+
+def generate_demo_accounts():
+    def generate_demo_account():
+        fake = Faker()
+        uid = generate_id()
+        first_name = fake.first_name()
+        last_name = fake.last_name()
+        password = fake.password(length=10)
+        email = fake.email()
+        mobile_phone = rstr.xeger(r"^(?:\+20|0)?1[0-9]{9}$")
+
+        return Account(uid, first_name, last_name, password, email, mobile_phone)
+
+    with open("demo_data.txt","a+") as f:
+        for _ in range(5):
+            acc = generate_demo_account()
+            accounts.append(acc)
+            f.write(str(acc))

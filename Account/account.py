@@ -32,3 +32,11 @@ class Account():
         if not validate_phone_number(mobile_phone):
             raise Exception("Not an Egyption Number")
         self.__mobile_phone = mobile_phone
+
+    def __str__(self) -> str:
+        return f"""
+        Name: {self.first_name} {self.last_name}
+        Email: {self.email}
+        Password: {self.password}
+        Mobile: {self.mobile_phone}
+    """
