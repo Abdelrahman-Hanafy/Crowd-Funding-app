@@ -27,8 +27,8 @@ def show_main_menu():
     print(50*"=")
 
 
-def main():
-    manage.generate_demo_projects()
+def main() -> bool:
+
     logged_id:str = None
 
     while not logged_id:
@@ -36,7 +36,7 @@ def main():
         choice  = input("your choice: ")
         
         if choice == '0':
-            break
+            return False
         
         elif choice == '1': #reg
             name = input("Enter your name [first last]: ").split(" ")
@@ -70,7 +70,7 @@ def main():
             continue
 
     if not logged_id :
-        return
+        return True
     
     while logged_id:
         show_main_menu()
@@ -92,7 +92,11 @@ def main():
         else:
             print("Please choose from menu items [1, 2, 3, 4, 0]")
             continue
+    return True
 
 if __name__ == "__main__":
-    while True:
-        main()
+    manage.generate_demo_projects()
+    auth.generate_demo_accounts()
+
+    while main():
+        pass

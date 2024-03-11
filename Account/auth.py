@@ -69,7 +69,7 @@ def generate_demo_accounts():
 
         return Account(uid, first_name, last_name, password, email, mobile_phone)
 
-    with open("demo_data.txt","a+") as f:
+    with open("demo_data.txt","w") as f:
         for _ in range(5):
             acc = generate_demo_account()
             accounts.append(acc)
