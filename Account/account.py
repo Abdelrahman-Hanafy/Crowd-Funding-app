@@ -35,6 +35,7 @@ class Account():
 
     def __str__(self) -> str:
         return f"""
+        ID: {self._uid}
         Name: {self.first_name} {self.last_name}
         Email: {self.email}
         Password: {self.password}

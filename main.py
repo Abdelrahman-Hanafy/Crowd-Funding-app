@@ -3,6 +3,7 @@ from Project import manage
 
 from getpass import getpass
 
+
 def show_log_menu():
     print(50*"=")
     print("""
@@ -12,7 +13,7 @@ def show_log_menu():
         0. Exit
     """)
     print(50*"=")
-    
+
 
 def show_main_menu():
     print(50*"=")
@@ -29,16 +30,16 @@ def show_main_menu():
 
 def main() -> bool:
 
-    logged_id:str = None
+    logged_id: str = None
 
     while not logged_id:
         show_log_menu()
-        choice  = input("your choice: ")
-        
+        choice = input("your choice: ")
+
         if choice == '0':
             return False
-        
-        elif choice == '1': #reg
+
+        elif choice == '1':  # reg
             name = input("Enter your name [first last]: ").split(" ")
             email = input("Email: ")
             phone = input("Mobile phone: ")
@@ -52,41 +53,41 @@ def main() -> bool:
                 break
 
             try:
-                logged_id = auth.register(first_name=name[0],last_name=name[1],password=password,
-                                        email=email,mobile_phone=phone)
+                logged_id = auth.register(first_name=name[0], last_name=name[1], password=password,
+                                          email=email, mobile_phone=phone)
             except Exception as e:
                 print(e)
 
-        elif choice == '2': #login
+        elif choice == '2':  # login
             email = input("Email: ")
             password = getpass("Passowrd: ")
             try:
-                logged_id = auth.login(email=email, password =password)
+                logged_id = auth.login(email=email, password=password)
             except Exception as e:
                 print(e)
-                
+
         else:
             print("Please choose from menu items [1, 2, 0]")
             continue
 
-    if not logged_id :
+    if not logged_id:
         return True
-    
+
     while logged_id:
         show_main_menu()
-        choice  = input("your choice: ")
+        choice = input("your choice: ")
 
-        if choice == '0': #log out
+        if choice == '0':  # log out
             logged_id = None
 
-        elif choice == '1': #view
-            manage.show_all()
+        elif choice == '1':  # view
+            manage.show_projects()
 
-        elif choice == '2': #edit
+        elif choice == '2':  # edit
             pass
-        elif choice == '3': #delete
+        elif choice == '3':  # delete
             pass
-        elif choice == '4': #search
+        elif choice == '4':  # search
             pass
 
         else:
@@ -94,9 +95,10 @@ def main() -> bool:
             continue
     return True
 
+
 if __name__ == "__main__":
-    manage.generate_demo_projects()
     auth.generate_demo_accounts()
+    manage.generate_demo_projects(auth.accounts)
 
     while main():
         pass

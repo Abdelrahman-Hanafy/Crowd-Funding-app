@@ -1,13 +1,15 @@
 from datetime import datetime
 
+
 class Project():
-    def __init__(self, title, description, target, start_date, end_date) -> None:
-        self.title: str= title
+    def __init__(self, auth_id, title, description, target, start_date, end_date) -> None:
+        self.auth_id: str = auth_id
+        self.title: str = title
         self.description: str = description
         self.traget: int = target
         self.start: datetime = start_date
         self.end: datetime = end_date
-    
+
     @property
     def start(self):
         return self.__start.ctime()
@@ -26,6 +28,7 @@ class Project():
 
     def __str__(self) -> str:
         return f"""{"="*50}
+        Auther: {self.auth_id}
         Title: {self.title}
         Description: {self.description}
         Traget: {self.traget}
