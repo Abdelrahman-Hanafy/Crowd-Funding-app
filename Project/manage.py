@@ -11,6 +11,8 @@ projects: list[Project] = []
 
 
 def generate_demo_projects(accs: list[object]):
+    global projects
+
     def generate_demo_project():
         auth_id = random.choice(accs)._uid
         title = lorem.sentence()
@@ -25,6 +27,27 @@ def generate_demo_projects(accs: list[object]):
 
     for _ in range(5):
         projects.append(generate_demo_project())
+
+
+def is_valid_project(keys: list[str]) -> bool:
+    required = {"auth_id", "title", "description",
+                "target", "start_date", "end_date"}
+    return all(key in required for key in keys)
+
+
+def create_project(**kwargs: str):
+    global projects
+    if not is_valid_project(kwargs.keys()):
+        raise Exception("Provide the full project data")
+
+    st_date_data = list(map(int, kwargs["start_date"].split("-")))
+    st_date = datetime(st_date_data[0], st_date_data[1], st_date_data[2])
+    end_date_data = list(map(int, kwargs["end_date"].split("-")))
+    end_date = datetime(end_date_data[0], end_date_data[1], end_date_data[2])
+
+    pro = Project(kwargs["auth_id"], kwargs["title"], kwargs["description"],
+                  int(kwargs["target"]), st_date, end_date)
+    projects.append(pro)
 
 
 def show_projects():

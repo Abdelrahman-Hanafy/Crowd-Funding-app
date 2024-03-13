@@ -23,6 +23,7 @@ def show_main_menu():
         2. Edit your Projects
         3. Delete from your Project
         4. Search with date
+        5. Create Project
         0. LogOut
     """)
     print(50*"=")
@@ -112,6 +113,18 @@ def main() -> bool:
                 print(projects[to_view-1])
             except IndexError:
                 print(f"Please choose Number between 1-{len(projects)}")
+
+        elif choice == '5':
+            title = input("Enter project title: ")
+            description = input("Enter project description: ")
+            target = input("Enter project target Amount: ")
+            start_date = input("Enter project Start date [YYYY-MM-DD]: ")
+            end_date = input("Enter project End date [YYYY-MM-DD]: ")
+            try:
+                manage.create_project(auth_id=logged_id, title=title, description=description,
+                                      target=target, start_date=start_date, end_date=end_date)
+            except Exception as e:
+                print(e)
 
         else:
             print("Please choose from menu items [1, 2, 3, 4, 0]")
