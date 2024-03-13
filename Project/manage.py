@@ -35,15 +35,22 @@ def is_valid_project(keys: list[str]) -> bool:
     return all(key in required for key in keys)
 
 
+def make_date(data: str) -> datetime:
+    date_data = list(map(int, data.split("-")))
+    date = datetime(date_data[0], date_data[1], date_data[2])
+    return date
+
+
 def create_project(**kwargs: str):
     global projects
     if not is_valid_project(kwargs.keys()):
         raise Exception("Provide the full project data")
 
-    st_date_data = list(map(int, kwargs["start_date"].split("-")))
-    st_date = datetime(st_date_data[0], st_date_data[1], st_date_data[2])
-    end_date_data = list(map(int, kwargs["end_date"].split("-")))
-    end_date = datetime(end_date_data[0], end_date_data[1], end_date_data[2])
+    st_date = make_date(kwargs["start_date"])
+    end_date = make_date(kwargs["end_date"])
+
+    if st_date > end_date:
+        raise Exception("End date should be after the start date")
 
     pro = Project(kwargs["auth_id"], kwargs["title"], kwargs["description"],
                   int(kwargs["target"]), st_date, end_date)
@@ -88,3 +95,13 @@ def remove_item(pro: Project):
         projects.remove(pro)
     except ValueError as e:
         raise e
+
+
+def edit_item(pro: Project, title, description,
+              target, start_date, end_date):
+
+    pro.title = title if title else pro.title
+    pro.description = description if description else pro.description
+    pro.traget = target if target else pro.traget
+    pro.start = make_date(start_date) if start_date else pro.start
+    pro.end = make_date(end_date) if end_date else pro.end

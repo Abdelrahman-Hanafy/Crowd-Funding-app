@@ -85,7 +85,22 @@ def main() -> bool:
             manage.show_projects()
 
         elif choice == '2':  # edit
-            pass
+            my_projects = manage.get_by_auther(id=logged_id)
+            manage.show_projects_list(my_projects)
+            to_edit = int(input("Which one you want to edit: "))
+            if to_edit == 0:
+                continue
+            print("Leave empty if you do not want to edit!!")
+            title = input("Enter project title: ")
+            description = input("Enter project description: ")
+            target = input("Enter project target Amount: ")
+            start_date = input("Enter project Start date [YYYY-MM-DD]: ")
+            end_date = input("Enter project End date [YYYY-MM-DD]: ")
+
+            pro_to_edit = my_projects[to_edit-1]
+
+            manage.edit_item(pro_to_edit, title, description,
+                             target, start_date, end_date)
 
         elif choice == '3':  # delete
             my_projects = manage.get_by_auther(id=logged_id)
