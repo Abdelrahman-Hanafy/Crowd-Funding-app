@@ -12,7 +12,7 @@ class Project():
 
     @property
     def start(self):
-        return self.__start.ctime()
+        return self.__start
 
     @start.setter
     def start(self, start_date):
@@ -20,7 +20,7 @@ class Project():
 
     @property
     def end(self):
-        return self.__end.ctime()
+        return self.__end
 
     @end.setter
     def end(self, end_date):
@@ -32,6 +32,7 @@ class Project():
         Title: {self.title}
         Description: {self.description}
         Traget: {self.traget}
+        Started at: {self.start.day} / {self.start.month} / {self.start.year}
         Remaning Period: {(self.__end - self.__start).days} days
         {"="*50}
         """

@@ -1,7 +1,6 @@
 """
 TODO: 
-    1- Add a user id for the project 
-    2- Add project creation option
+    1- Add project creation option
 """
 from .project import Project
 import lorem  # A library for generating random Lorem Ipsum text
@@ -28,21 +27,28 @@ def generate_demo_projects(accs: list[object]):
         projects.append(generate_demo_project())
 
 
-def show_projects(id: str | None = None):
-    if id is not None:
-        pros = get_by_auther(id)
-    else:
-        pros = projects
-
-    for project in pros:
+def show_projects():
+    for project in projects:
         print(project)
+
+
+def get_filtered(check: callable) -> list[Project]:
+    filtered = [project for project in projects if check(project)]
+    return filtered
 
 
 def get_by_auther(id: str) -> list[Project]:
     def check(project: Project) -> bool:
         return project.auth_id == id
-    filtered_by_id = [project for project in projects if check(project)]
-    return filtered_by_id
+
+    return get_filtered(check)
+
+
+def get_by_date(year: int, month: int | None = None) -> list[Project]:
+    def check(project: Project) -> bool:
+        return project.start.year == year and (project.start.month == month if month else True)
+
+    return get_filtered(check)
 
 
 def show_projects_list(pros: list[Project]):

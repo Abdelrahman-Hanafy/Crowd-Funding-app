@@ -85,6 +85,7 @@ def main() -> bool:
 
         elif choice == '2':  # edit
             pass
+
         elif choice == '3':  # delete
             my_projects = manage.get_by_auther(id=logged_id)
             manage.show_projects_list(my_projects)
@@ -92,13 +93,25 @@ def main() -> bool:
             if to_delete == 0:
                 continue
             try:
-                manage.remove_item(my_projects[to_delete])
+                manage.remove_item(my_projects[to_delete-1])
             except IndexError:
                 print(f"Please choose Number between 1-{len(my_projects)}")
             except ValueError:
                 print("Error while deleting this object...")
+
         elif choice == '4':  # search
-            pass
+            year = int(input("Enter the year: "))
+            month = input("Enter Month or leave blank [1-12]: ")
+            month = int(month) if month else None
+            projects = manage.get_by_date(year, month)
+            manage.show_projects_list(projects)
+            to_view = int(input("More details for: "))
+            if to_view == 0:
+                continue
+            try:
+                print(projects[to_view-1])
+            except IndexError:
+                print(f"Please choose Number between 1-{len(projects)}")
 
         else:
             print("Please choose from menu items [1, 2, 3, 4, 0]")
