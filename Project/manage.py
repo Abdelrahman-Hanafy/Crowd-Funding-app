@@ -43,3 +43,19 @@ def get_by_auther(id: str) -> list[Project]:
         return project.auth_id == id
     filtered_by_id = [project for project in projects if check(project)]
     return filtered_by_id
+
+
+def show_projects_list(pros: list[Project]):
+    print("="*50)
+    for i, p in enumerate(pros):
+        print(f"{i+1}. {p.title}")
+    print("0. Go Back")
+    print("="*50)
+
+
+def remove_item(pro: Project):
+    global projects
+    try:
+        projects.remove(pro)
+    except ValueError as e:
+        raise e

@@ -23,7 +23,7 @@ def show_main_menu():
         2. Edit your Projects
         3. Delete from your Project
         4. Search with date
-        0. Exit
+        0. LogOut
     """)
     print(50*"=")
 
@@ -86,7 +86,17 @@ def main() -> bool:
         elif choice == '2':  # edit
             pass
         elif choice == '3':  # delete
-            pass
+            my_projects = manage.get_by_auther(id=logged_id)
+            manage.show_projects_list(my_projects)
+            to_delete = int(input("Which one you want to delete: "))
+            if to_delete == 0:
+                continue
+            try:
+                manage.remove_item(my_projects[to_delete])
+            except IndexError:
+                print(f"Please choose Number between 1-{len(my_projects)}")
+            except ValueError:
+                print("Error while deleting this object...")
         elif choice == '4':  # search
             pass
 
